@@ -1,0 +1,14 @@
+- file: path=/etc/postfix state=directory
+  sudo: true
+
+- template: src=main.cf dest=/etc/postfix/main.cf
+  register: postfix_config_result
+  sudo: true
+
+- apt: name=postfix
+  register: postfix_install_result
+  sudo: true
+
+- service: name=postfix state=reloaded
+  when: not postfix_install_result.changed and postfix_config_result.changed
+  sudo: true

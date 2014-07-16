@@ -1,0 +1,11 @@
+default_privs = mail
+mail_owner = postfix
+mydomain = {{postfix_domain}}
+myhostname = {{ansible_hostname}}
+myorigin = $mydomain
+mailbox_size_limit = 0
+alias_maps = hash:/etc/aliases
+mydestination = $myhostname localhost
+mynetworks = 127.0.0.0/8 [::1]/128
+inet_interfaces = loopback-only
+notify_classes =  bounce, delay, policy, protocol, resource, software
